@@ -343,4 +343,14 @@ defineSuite([
         expect(style.color.evaluate(feature1)).toEqual(Color.BLUE);
         expect(style.color.evaluate(feature2)).toEqual(Color.YELLOW);
     });
+
+    it('return undefined shader functions when the style is empty', function() {
+        // The default color style is white and the default show style is true, but the generated shader
+        // functions should just be undefined. We don't want all the points to be white.
+        var style = new Cesium3DTileStyle({});
+        var colorFunction = style.getColorShaderFunction('getColor', '', {});
+        var showFunction = style.getShowShaderFunction('getShow', '', {});
+        expect(colorFunction).toBeUndefined();
+        expect(showFunction).toBeUndefined();
+    });
 });
